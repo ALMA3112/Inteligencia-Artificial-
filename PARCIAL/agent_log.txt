@@ -1,0 +1,58 @@
+============================================================
+  AGENTE IA — BATALLA RPG POR TURNOS
+  Sector: Videojuegos | Parcial Corte 2
+============================================================
+
+[OBSERVAR] Estado actual: HP(65/40) ítems=2
+
+─── MÓDULO 1: Red Bayesiana ───
+  Evidencia: {'enemigo_peligroso': False, 'hp_bajo': False, 'tiene_arma': True}
+  P(Victoria | evidencia) = 0.9000 (90%)
+  Decisión bayesiana: SEGUIR PLAN
+
+─── MÓDULO 2: Planificador STRIPS ───
+  Plan encontrado (4 pasos):
+    1. Comprar_Espada
+    2. Ir_Mazmorra
+    3. Debilitar_Jefe
+    4. Atacar_Jefe_Final
+
+─── MÓDULO 3: Min-Max (profundidad 3) ───
+  Mejor acción (α-β): Atacar (valor=114.0)
+  Nodos expandidos:   22
+
+─── MÓDULO 4: Agente integrador ───
+  observe  → HP(65/40) ítems=2
+  posterior→ P(Victoria) = 90%
+  plan     → Comprar_Espada → Ir_Mazmorra → Debilitar_Jefe → Atacar_Jefe_Final
+  decision → Atacar
+  acción   → EJECUTAR: Atacar
+
+─── EXPERIMENTOS: Comparación de versiones Min-Max ───
+
+  Escenario              Prof | Naive(ms)  Nodos | α-β(ms)  Nodos | Heur(ms)  Nodos | Decisión
+  --------------------------------------------------------------------------------------------------------------
+  Ventaja héroe             2 |     0.10     13 |   0.00      9 |    0.20      9 | Atacar / Atacar / Atacar
+  Ventaja héroe             3 |     0.20     40 |   0.10     22 |    0.10     22 | Atacar / Atacar / Atacar
+  Ventaja héroe             4 |     0.30    115 |   0.20     49 |    0.10     49 | Atacar / Atacar / Atacar
+  Empate                    2 |     0.00     13 |   0.00     11 |    0.00      9 | Usar ítem / Usar ítem / Atacar
+  Empate                    3 |     0.10     40 |   0.10     24 |    0.10     22 | Usar ítem / Usar ítem / Atacar
+  Empate                    4 |     0.50    121 |   0.10     39 |    0.10     39 | Atacar / Atacar / Atacar
+  Desventaja héroe          2 |     0.00     13 |   0.00      9 |    0.00      9 | Defender / Atacar / Atacar
+  Desventaja héroe          3 |     0.10     34 |   0.00     22 |    0.00     18 | Defender / Atacar / Defender
+  Desventaja héroe          4 |     0.30    121 |   0.10     37 |    0.10     49 | Atacar / Atacar / Defender
+
+─── ANÁLISIS DE SENSIBILIDAD BAYESIANO ───
+
+  Evidencia fija: HP alto, tiene arma
+   Prior(Peligro) | P(Victoria) | Seguir plan? | Decisión MinMax
+  --------------------------------------------------------------
+              5% |        89% |           Sí | Atacar
+             10% |        87% |           Sí | Atacar
+             20% |        84% |           Sí | Atacar
+             40% |        78% |           Sí | Atacar
+             60% |        72% |           Sí | Atacar
+
+============================================================
+  Todos los archivos generados correctamente.
+============================================================
